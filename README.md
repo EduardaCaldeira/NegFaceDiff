@@ -15,7 +15,16 @@ TBR
 
 ## How to Run?
 
-TBR
+# Positive Context List Generation
+1. Run `create_sample_identity_contexts.py` to create the list of positive contexts used during sampling. Since each context represents an identity on the generated dataset 
+
+# Negative Context List Generation
+
+# Data Sampling + Alignment
+1. Run `sample.py` to train
+2. the original model (set `config.is_original_train=True` in `config/config.py`), whose predictions will be used to perform the pruning (in the paper, ResNet-50 + CosFace loss). This script will automatically generate the files necessary to perform **DynUnc** pruning
+
+# Distribution Plots + FR Training
 
 ## Citation
 
