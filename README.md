@@ -1,4 +1,4 @@
-# This is the official repository of the paper "NegFaceDiff: The Power of Negative Context in Identity-Conditioned Diffusion for Synthetic Face Generation" (accepted at the CV4BIOM Workshop, ICCV 2025)
+# This is the official repository of the paper "NegFaceDiff: The Power of Negative Context in Identity-Conditioned Diffusion for Synthetic Face Generation" (accepted at ICCV Workshop 2025)
 
 ## Abstract
 
@@ -22,7 +22,10 @@ TBR
 
 # Data Sampling + Alignment
 1. Run `sample.py` to train
-2. the original model (set `config.is_original_train=True` in `config/config.py`), whose predictions will be used to perform the pruning (in the paper, ResNet-50 + CosFace loss). This script will automatically generate the files necessary to perform **DynUnc** pruning
+
+
+
+ADD ALSO TRAINING WITH CASIA
 
 # Distribution Plots + FR Training
 
