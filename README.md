@@ -11,7 +11,7 @@ TBR
 
 ## Datasets Download
 
-TBR
+You can download the CASIA-WebFace dataset [here](https://github.com/deepinsight/insightface/tree/master/recognition/_datasets_).
 
 ## How to Run?
 
@@ -22,7 +22,7 @@ TBR
 1. Run `create_sample_identity_contexts.py` to create the list of positive contexts used during sampling. Since each context represents an identity on the generated dataset, `n_contexts` should be equal or greater than the number of identities to be generated
 
 ### Negative Context List Generation
-1. Run `find_closest_context.py` (Close-Neg), `find_median_context.py`(Mid-Neg) or `find_farthest_context.py` (Far-Neg). Rand-Neg does not require the generation of a negative context list prior to sampling.
+1. Run `find_closest_context.py` (Close-Neg), `find_median_context.py`(Mid-Neg) or `find_farthest_context.py` (Far-Neg). Rand-Neg does not require the generation of a negative context list prior to sampling
 
 ### Data Sampling + Alignment
 1. Run `sample.py` to generate the synthetic dataset
@@ -39,8 +39,6 @@ Most relevant configurations (`configs/sample_configs.yalm`):
 2. Change to the directory where these files are saved and run `geteerinf -p $OUTPUT_DIR -i "cos_sim_imp.txt" -g "cos_sim_gen.txt"` to generate the distribution metrics presented in the paper (EER, FMR100, FMR1000, genuine and impostor Mean and STD)
 3. Run `face_recognition_training/train.py` to train a FR system with the synthetically generated data
 4. Run `eval_ijbc.py` to perform IJB-C evaluation
-
-5. **ADD RFW**
 
 ## Citation
 
