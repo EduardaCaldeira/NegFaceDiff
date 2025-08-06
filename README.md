@@ -38,6 +38,7 @@ Most relevant configurations (`configs/sample_configs.yalm`):
 1. Run `face_recognition_training/distribution.py` to generate the genuine and impostor score distribution plots, as well as two `.txt` files containing these scores
 2. Change to the directory where these files are saved and run `geteerinf -p $OUTPUT_DIR -i "cos_sim_imp.txt" -g "cos_sim_gen.txt"` to generate the distribution metrics presented in the paper (EER, FMR100, FMR1000, genuine and impostor Mean and STD)
 3. Run `face_recognition_training/train.py` to train a FR system with the synthetically generated data
+4. Run `eval_ijbc.py` to perform IJB-C evaluation
 
 ## Citation
 
