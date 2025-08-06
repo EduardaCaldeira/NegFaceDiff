@@ -40,6 +40,8 @@ Most relevant configurations (`configs/sample_configs.yalm`):
 3. Run `face_recognition_training/train.py` to train a FR system with the synthetically generated data
 4. Run `eval_ijbc.py` to perform IJB-C evaluation
 
+5. **ADD RFW**
+
 ## Citation
 
 TBR
