@@ -6,16 +6,26 @@ The use of synthetic data as an alternative to authentic datasets in face recogn
 
 ## Results
 
-TBR
+<img src="tables/id_sep_tab.png" width="600"/>
 
 ## Datasets Download
 
-You can download the CASIA-WebFace dataset [here](https://github.com/deepinsight/insightface/tree/master/recognition/_datasets_).
+You can download the FFHQ dataset [here](https://github.com/NVlabs/ffhq-dataset) and the CASIA-WebFace dataset [here](https://github.com/deepinsight/insightface/tree/master/recognition/_datasets_).
 
 ## How to Run?
 
+### SetUp
+
+The pre-trained autoencoder for the latent diffusion training and sampling can be obtained from the pre-trained fhq256 LDM from [Rombach et al.](https://github.com/CompVis/latent-diffusion/blob/main/models/ldm/ffhq256/config.yaml) (please follow their licence distribution). These files should be saved under `models/autoencoder`.
+
+To run `face_recognition_training/distribution.py`, the pre-trained ElasticFace-Cos model weights have to be downloaded from the [official ElasticFace repository](https://github.com/fdbtrs/ElasticFace) and placed under `output/ElasticCos.pth`.
+
 ### IDiff-Face Training
-To train IDiff-Face, follow the setup described in the [official repository of the paper](https://github.com/fdbtrs/IDiff-Face). The diffusion model trained on FFHQ is also provided there. Access to the model trained on CASIA can be requested here. **Please share your name, affiliation, and official email in the request form.**
+To train IDiff-Face, follow the setup described in the [official repository of the paper](https://github.com/fdbtrs/IDiff-Face), where all the necessary scripts and configuration are provided. 
+
+To apply NegFaceDiff on top of an already trained diffusion model, we provide access to the pre-trained models used in this work:
+- model trained on FFHQ: can be accessed in [IDiff-Face's official repository](https://github.com/fdbtrs/IDiff-Face)
+- model trained on CASIA: request access here. **Please share your name, affiliation, and official email in the request form.**
 
 ### Positive Context List Generation
 1. Run `create_sample_identity_contexts.py` to create the list of positive contexts used during sampling. Since each context represents an identity on the generated dataset, `n_contexts` should be equal or greater than the number of identities to be generated
