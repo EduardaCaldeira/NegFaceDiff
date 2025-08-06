@@ -15,19 +15,29 @@ TBR
 
 ## How to Run?
 
+# IDiff-Face CASIA Training
+TBR
+
 # Positive Context List Generation
-1. Run `create_sample_identity_contexts.py` to create the list of positive contexts used during sampling. Since each context represents an identity on the generated dataset 
+1. Run `create_sample_identity_contexts.py` to create the list of positive contexts used during sampling. Since each context represents an identity on the generated dataset, `n_contexts` should be equal or greater than the number of identities to be generated
 
 # Negative Context List Generation
+1. Run `find_closest_context.py` (Close-Neg), `find_median_context.py`(Mid-Neg) or `find_farthest_context.py` (Far-Neg). Rand-Neg does not require the generation of a negative context list prior to sampling.
 
 # Data Sampling + Alignment
-1. Run `sample.py` to train
+1. Run `sample.py` to generate the synthetic dataset
+2. Run `split_identity_blocks.py` to split the block of samples generated for each identity into individual images
+3. Run `MTCNN_alignment.py` to align the samples and obtain the final dataset
 
-
-
-ADD ALSO TRAINING WITH CASIA
+Most relevant configurations (`configs/sample_configs.yalm`): 
+- `neg_prompt.w`: value of the negative context scale parameter (in this work, `neg_prompt.w = 0.5`)
+- `sampling.is_ddim`: set to `true` to sample with DDIM and to `false` to sample with DDPM
+- `sampling.method`: `none -> Baseline IDiff-Face` (with `neg_prompt.w = 0`), `empty -> Null`, `cc -> Close-Neg`, `mc -> Mid-Neg`, `fc -> Far-Neg`, `rand -> Rand-Neg`
 
 # Distribution Plots + FR Training
+1. Run `face_recognition_training/distribution.py` to generate the genuine and impostor score distribution plots, as well as two `.txt` files containing these scores
+2. Change to the directory where these files are saved and run `geteerinf -p $OUTPUT_DIR -i "cos_sim_imp.txt" -g "cos_sim_gen.txt"` to generate the distribution metrics presented in the paper (EER, FMR100, FMR1000, genuine and impostor Mean and STD)
+3. Run `face_recognition_training/train.py` to train a FR system with the synthetically generated data
 
 ## Citation
 
