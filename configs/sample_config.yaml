@@ -1,0 +1,42 @@
+# @package _global_
+
+defaults:
+  - _self_
+  - override hydra/hydra_logging: disabled
+  - override hydra/job_logging: disabled
+
+create_contexts:
+  n_contexts: 15000
+  contexts_save_path: "/output/contexts"
+
+  # extra for adapted synthetic
+  embedding_size: 512
+  contexts_save_name: "random_synthetic_uniform_Fadi_" # "random_synthetic_extracted_", "random_synthetic_uniform_", "adapted_synthetic_uniform_", "multiple_synthetic_"
+  mean_save_name: "mean_elastic"
+  std_save_name: "std_elastic"
+
+checkpoint:
+  path: "./neg_prompt/trained_models/CASIA-IDiff-cpd25"
+  global_step: null
+  use_non_ema: false
+
+neg_prompt:
+  w: 0.5
+
+sampling:
+  seed: 42
+
+  batch_size: 60 
+  n_contexts: 10050
+
+  n_samples_per_context: 60 
+
+  ddim_step: 200
+  is_ddim: false
+  root_dir: "/output"
+  method: "none" # options: 'none', 'rand', 'cc', 'fc', 'mc', 'empty'
+
+hydra:
+  output_subdir: null
+  run:
+    dir: .
