@@ -6,7 +6,7 @@ The use of synthetic data as an alternative to authentic datasets in face recogn
 
 ## Results
 ## Generated Datasets Download
-You can request access to the dataset generated with NegFaceDiff (Far-Neg, diffusion model pre-trained on CASIA-WebFace) [here](). This folder also contains the pre-trained diffusion model path and FR model trained on the generated data. **Please share your name, affiliation, and official email in the request form.**
+You can request access to the dataset generated with NegFaceDiff (Far-Neg, diffusion model pre-trained on CASIA-WebFace) [here](https://drive.google.com/drive/folders/1RXplM2j8cP4pyljcHweoq5I_xZFi3h_T?usp=sharing). This folder also contains the pre-trained diffusion model weights and the weights of the FR model trained on the generated data. **Please share your name, affiliation, and official email in the request form.**
 
 ### Face Recognition - Comparison with SOTA
 <img src="tables/FR_tab.png" width="600"/>
