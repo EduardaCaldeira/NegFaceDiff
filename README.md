@@ -1,4 +1,4 @@
-# This is the official repository of the paper "NegFaceDiff: The Power of Negative Context in Identity-Conditioned Diffusion for Synthetic Face Generation" (accepted at ICCV Workshop 2025)
+# This is the official repository of the paper [NegFaceDiff: The Power of Negative Context in Identity-Conditioned Diffusion for Synthetic Face Generation](https://arxiv.org/abs/2508.09661) (accepted at ICCV Workshop 2025)
 
 ## Abstract
 
@@ -53,7 +53,17 @@ Most relevant configurations (`configs/sample_configs.yalm`):
 
 ## Citation
 
-TBR
+If you use any of the code, pruned datasets or models provided in this repository, please cite the following paper:
+
+<pre>@misc{caldeira2025negfacediff,
+      title={NegFaceDiff: The Power of Negative Context in Identity-Conditioned Diffusion for Synthetic Face Generation}, 
+      author={Eduarda Caldeira and Naser Damer and Fadi Boutros},
+      year={2025},
+      eprint={2508.09661},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2508.09661}, 
+} </pre>
 
 ## License
 
