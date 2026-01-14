@@ -86,6 +86,7 @@ def align_images(folder, batchsize, num_imgs=0, evalDB=False):
             evalDB: evaluation DB alignment
     """
 
+   
     complete_in_folder = ensure_path_join(folder, "original")
     complete_out_folder = ensure_path_join(folder, "aligned")
 
@@ -136,7 +137,13 @@ class AlignLite(LightningLite):
         contexts_file = ensure_path_join(cfg.create_contexts.contexts_save_path, cfg.create_contexts.contexts_save_name + str(cfg.create_contexts.n_contexts) + ".npy")
         input_contexts_name = contexts_file.split("/")[-1].split(".")[0]
 
-        w_path = "w_" + str(10*cfg.neg_prompt.w)
+        if cfg.neg_prompt.is_adaptive_w:
+            if cfg.neg_prompt.is_reverse_adaptive:
+                w_path = "reverse_adaptive/w_" + str(10*cfg.neg_prompt.w)
+            else: 
+                w_path = "adaptive/w_" + str(10*cfg.neg_prompt.w)
+        else:
+            w_path = "w_" + str(10*cfg.neg_prompt.w)
 
         if cfg.sampling.is_ddim:
             root_dir = ensure_path_join(cfg.sampling.root_dir, model_name, input_contexts_name, cfg.sampling.method, w_path)

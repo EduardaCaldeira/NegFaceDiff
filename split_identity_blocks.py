@@ -44,7 +44,13 @@ class SplittingBlocks(LightningLite):
         contexts_name = contexts_file.split("/")[-1].split(".")[0]
         model_name = cfg.checkpoint.path.split("/")[-1]
 
-        w_path = "w_" + str(10*cfg.neg_prompt.w)
+        if cfg.neg_prompt.is_adaptive_w:
+            if cfg.neg_prompt.is_reverse_adaptive:
+                w_path = "reverse_adaptive/w_" + str(10*cfg.neg_prompt.w)
+            else: 
+                w_path = "adaptive/w_" + str(10*cfg.neg_prompt.w)
+        else:
+            w_path = "w_" + str(10*cfg.neg_prompt.w)
 
         if cfg.sampling.is_ddim:
             root_dir = ensure_path_join(cfg.sampling.root_dir, model_name, contexts_name, cfg.sampling.method, w_path)

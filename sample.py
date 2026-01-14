@@ -101,7 +101,13 @@ class DiffusionSamplerLite(LightningLite):
         elif cfg.checkpoint.global_step is not None:
             model_name += f"_{cfg.checkpoint.global_step}"
 
-        w_path = "w_" + str(10*cfg.neg_prompt.w)
+        if cfg.neg_prompt.is_adaptive_w:
+            if cfg.neg_prompt.is_reverse_adaptive:
+                w_path = "reverse_adaptive/w_" + str(10*cfg.neg_prompt.w)
+            else: 
+                w_path = "adaptive/w_" + str(10*cfg.neg_prompt.w)
+        else:
+            w_path = "w_" + str(10*cfg.neg_prompt.w)
 
         if cfg.sampling.is_ddim:
             samples_dir = ensure_path_join(cfg.sampling.root_dir, model_name, input_contexts_name, cfg.sampling.method, w_path, "samples")
@@ -158,6 +164,8 @@ class DiffusionSamplerLite(LightningLite):
                     context=context,
                     negative_context=negative_context, 
                     w=cfg.neg_prompt.w,
+                    is_adaptive_w=cfg.neg_prompt.is_adaptive_w,
+                    is_reverse_adaptive=cfg.neg_prompt.is_reverse_adaptive,
                     ddim_step=cfg.sampling.ddim_step,
                     is_ddim=cfg.sampling.is_ddim,
                     latent_decoder=latent_decoder
@@ -213,7 +221,7 @@ class DiffusionSamplerLite(LightningLite):
     def perform_sampling(
             diffusion_model, n_samples, size, batch_size, samples_dir,
             prefix: str = None, context: torch.Tensor = None, 
-            negative_context: torch.Tensor = None, w: float = 0.5, ddim_step: int = 200, is_ddim: bool = True,
+            negative_context: torch.Tensor = None, w: float = 0.5, is_adaptive_w: bool = False, is_reverse_adaptive: bool = False, ddim_step: int = 200, is_ddim: bool = True,
             latent_decoder: torch.nn.Module = None):
 
         n_batches = math.ceil(n_samples / batch_size)
@@ -227,9 +235,9 @@ class DiffusionSamplerLite(LightningLite):
             for _ in range(n_batches):
 
                 if is_ddim:
-                    batch_samples = diffusion_model.sample_ddim(batch_size, size, context=context, negative_context=negative_context, w=w, ddim_step=ddim_step)
+                    batch_samples = diffusion_model.sample_ddim(batch_size, size, context=context, negative_context=negative_context, w=w, is_adaptive_w=is_adaptive_w, is_reverse_adaptive=is_reverse_adaptive, ddim_step=ddim_step)
                 else:
-                    batch_samples = diffusion_model.sample_ddpm(batch_size, size, context=context, negative_context=negative_context, w=w)
+                    batch_samples = diffusion_model.sample_ddpm(batch_size, size, context=context, negative_context=negative_context, w=w, is_adaptive_w=is_adaptive_w, is_reverse_adaptive=is_reverse_adaptive)
 
                 with torch.no_grad():
                     if latent_decoder:
