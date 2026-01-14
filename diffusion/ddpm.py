@@ -81,7 +81,9 @@ class DenoisingDiffusionProbabilisticModel(torch.nn.Module):
         self.train()
         return x_t
 
-    def sample_ddpm(self, n_samples, size, x_T: torch.Tensor = None, context: torch.Tensor = None, negative_context: torch.Tensor = None, w: float = 0.5, dropout_mask: torch.Tensor = None) -> torch.Tensor:
+    def sample_ddpm(self, n_samples, size, x_T: torch.Tensor = None, context: torch.Tensor = None, negative_context: torch.Tensor = None, w: float = 0.5, 
+                    is_adaptive_w: bool = False, is_reverse_adaptive: bool = False,
+                    dropout_mask: torch.Tensor = None) -> torch.Tensor:
         # if initial noise is not provided then sample it
         x_t = x_T if x_T is not None else self.sample_prior(n_samples, size).cuda()
 
@@ -95,6 +97,8 @@ class DenoisingDiffusionProbabilisticModel(torch.nn.Module):
             if negative_context is None:
                 w = 0
 
+            final_w = w
+
             for i in pbar:
                 z = torch.randn(n_samples, *size).cuda() if i > 1 else 0
                 t = torch.tensor(i).repeat(n_samples).cuda()
@@ -102,7 +106,13 @@ class DenoisingDiffusionProbabilisticModel(torch.nn.Module):
                 eps_pos = self.eps_model(x_t, t, context, dropout_mask)
                 eps_neg = self.eps_model(x_t, t, negative_context, dropout_mask)
 
-                eps = (1 + w) * eps_pos - w * eps_neg
+                if is_adaptive_w:
+                    if is_reverse_adaptive:
+                        final_w = w * (i / self.T)
+                    else: 
+                        final_w = w * (1 - i / self.T)
+
+                eps = (1 + final_w) * eps_pos - final_w * eps_neg
 
                 x_t = self.sqrt_alphas_inv[i] * (x_t - eps * self.one_minus_alphas_over_sqrt_one_minus_alpha_bars[i]) + self.sigmas[i] * z
 
@@ -173,7 +183,8 @@ class DenoisingDiffusionProbabilisticModel(torch.nn.Module):
 
         return x_t
 
-    def sample_ddim(self, n_samples, size, x_T: torch.Tensor = None, context: torch.Tensor = None, negative_context: torch.Tensor = None, w: float = 0.5,
+    def sample_ddim(self, n_samples, size, x_T: torch.Tensor = None, context: torch.Tensor = None, negative_context: torch.Tensor = None, w: float = 0.5, 
+                    is_adaptive_w: bool = False, is_reverse_adaptive: bool = False,
                     dropout_mask: torch.Tensor = None, eta=0, ddim_step=200) -> torch.Tensor:
         # if initial noise is not provided then sample it
         # style test
@@ -192,6 +203,8 @@ class DenoisingDiffusionProbabilisticModel(torch.nn.Module):
         if negative_context is None:
             w = 0
 
+        final_w = w
+
         skip = self.T // ddim_step
         print("DDIM Sampling")
         print("skip: %d" % skip)
@@ -203,7 +216,13 @@ class DenoisingDiffusionProbabilisticModel(torch.nn.Module):
                 eps_pos = self.eps_model(x_t, t, context, dropout_mask)
                 eps_neg = self.eps_model(x_t, t, negative_context, dropout_mask)
 
-                model_output = (1 + w) * eps_pos - w * eps_neg
+                if is_adaptive_w: 
+                    if is_reverse_adaptive:
+                        final_w = w * (i / self.T)
+                    else: 
+                        final_w = w * (1 - i / self.T)
+
+                model_output = (1 + final_w) * eps_pos - final_w * eps_neg
 
                 # 1. get previous step value (=t-1)
                 prev_timestep = i - skip
