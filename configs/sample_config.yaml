@@ -11,30 +11,43 @@ create_contexts:
 
   # extra for adapted synthetic
   embedding_size: 512
-  contexts_save_name: "random_synthetic_uniform_Fadi_" # "random_synthetic_extracted_", "random_synthetic_uniform_", "adapted_synthetic_uniform_", "multiple_synthetic_"
+  contexts_save_name: "random_synthetic_uniform_" # "random_synthetic_extracted_", "random_synthetic_uniform_", "adapted_synthetic_uniform_", "multiple_synthetic_"
   mean_save_name: "mean_elastic"
   std_save_name: "std_elastic"
 
 checkpoint:
   path: "./neg_prompt/trained_models/CASIA-IDiff-cpd25"
+
   global_step: null
   use_non_ema: false
 
 neg_prompt:
-  w: 0.5
+  w: 1.0
+  is_adaptive_w: true
+  is_reverse_adaptive: false
 
 sampling:
   seed: 42
 
-  batch_size: 60 
-  n_contexts: 10050
+  batch_size: 50 # 50 for NegFaceDiff
+  n_contexts: 10050 # 10050
 
-  n_samples_per_context: 60 
+  n_samples_per_context: 60 #50
 
   ddim_step: 200
   is_ddim: false
   root_dir: "/output"
-  method: "none" # options: 'none', 'rand', 'cc', 'fc', 'mc', 'empty'
+  method: "fc" # options: 'none', 'rand', 'cc', 'fc', 'mc', 'empty'
+
+align:
+  just_resize_if_fail: True
+
+  real_data_names:
+  # - "ffhq_128"
+  # - "lfw_250"
+
+  image_size: 128
+
 
 hydra:
   output_subdir: null
