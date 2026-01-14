@@ -39,7 +39,10 @@ def main(args):
     cfg.width = 1000
     cfg.depth = 20
 
-    seed_path = "w_"+str(cfg.w * 10)
+    if cfg.is_adaptive_w:
+        seed_path = "adaptive/w_" + str(10*cfg.w)
+    else:
+        seed_path = "w_" + str(10*cfg.w)
 
     if cfg.is_ddim:
         root_folder = os.path.join(cfg.root_dir, cfg.model, cfg.embedding_type, cfg.method, seed_path)

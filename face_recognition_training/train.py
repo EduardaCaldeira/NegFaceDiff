@@ -57,7 +57,13 @@ def main(args):
     if args.depth != 0:
         cfg.depth = args.depth
 
-    seed_path = "w_" + str(10*cfg.w)
+    if cfg.is_adaptive_w:
+        if cfg.is_reverse_adaptive:
+            seed_path = "reverse_adaptive/w_" + str(10*cfg.w)
+        else: 
+            seed_path = "adaptive/w_" + str(10*cfg.w)
+    else:
+        seed_path = "w_" + str(10*cfg.w)
     
     root_folder = os.path.join(cfg.root_dir, cfg.model, cfg.embedding_type, cfg.method, seed_path)
 
