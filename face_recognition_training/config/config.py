@@ -6,6 +6,8 @@ dataset_folder = "specify the path to the aligned images folder"
 
 root_dir = "/output"
 w = 0
+is_adaptive_w = False
+is_reverse_adaptive = False
 method = 'none'
 is_ddim = False
 
