@@ -1,11 +1,9 @@
-# This is the official repository of the paper [NegFaceDiff: The Power of Negative Context in Identity-Conditioned Diffusion for Synthetic Face Generation](https://arxiv.org/abs/2508.09661) (accepted at ICCV Workshop 2025)
+# This is the official repository of the papers [NegFaceDiff: The Power of Negative Context in Identity-Conditioned Diffusion for Synthetic Face Generation](https://arxiv.org/abs/2508.09661) (accepted at ICCV Workshop 2025) and AdaptDiff: Adaptive Guidance in Diffusion Models for Diverse and Identity-Consistent Face Synthesis (accepted at AAAI Student Abstract and Poster 2026
 
-## Results
 ## Generated Datasets Download
 You can request access to the dataset generated with NegFaceDiff (Far-Neg, diffusion model pre-trained on CASIA-WebFace) [here](https://drive.google.com/drive/folders/1RXplM2j8cP4pyljcHweoq5I_xZFi3h_T?usp=sharing). This folder also contains the pre-trained diffusion model weights and the weights of the FR model trained on the generated data. **Please share your name, affiliation, and official email in the request form.**
 
-### Face Recognition - Comparison with SOTA
-<img src="tables/FR_tab.png" width="600"/>
+The dataset generated with AdaptDiff will be release soon.
 
 ## Training Datasets Download
 You can download the FFHQ dataset [here](https://github.com/NVlabs/ffhq-dataset) and the CASIA-WebFace dataset [here](https://github.com/deepinsight/insightface/tree/master/recognition/_datasets_).
@@ -13,7 +11,6 @@ You can download the FFHQ dataset [here](https://github.com/NVlabs/ffhq-dataset)
 ## How to Run?
 
 ### SetUp
-
 The pre-trained autoencoder for the latent diffusion training and sampling can be obtained from the pre-trained fhq256 LDM from [Rombach et al.](https://github.com/CompVis/latent-diffusion/blob/main/models/ldm/ffhq256/config.yaml) (please follow their licence distribution). These files should be saved under `models/autoencoder`.
 
 To run `face_recognition_training/distribution.py`, the pre-trained ElasticFace-Cos model weights have to be downloaded from the [official ElasticFace repository](https://github.com/fdbtrs/ElasticFace) and placed under `output/ElasticCos.pth`.
@@ -40,6 +37,7 @@ Most relevant configurations (`configs/sample_configs.yalm`):
 - `neg_prompt.w`: value of the negative context scale parameter (in this work, `neg_prompt.w = 0.5`)
 - `sampling.is_ddim`: set to `true` to sample with DDIM and to `false` to sample with DDPM
 - `sampling.method`: `none -> Baseline IDiff-Face` (with `neg_prompt.w = 0`), `empty -> Null`, `cc -> Close-Neg`, `mc -> Mid-Neg`, `fc -> Far-Neg`, `rand -> Rand-Neg`
+- `neg_prompt.is_adaptive_w`: `false -> NegFaceDiff`, `true -> AdaptDiff`
 
 ### Distribution Plots + FR Training
 1. Run `face_recognition_training/distribution.py` to generate the genuine and impostor score distribution plots, as well as two `.txt` files containing these scores
@@ -49,8 +47,9 @@ Most relevant configurations (`configs/sample_configs.yalm`):
 
 ## Citation
 
-If you use any of the code, pruned datasets or models provided in this repository, please cite the following paper:
+If you use any of the code, datasets or models provided in this repository, please cite the correspondent paper:
 
+### NegFaceDiff
 <pre>@misc{caldeira2025negfacediff,
       title={NegFaceDiff: The Power of Negative Context in Identity-Conditioned Diffusion for Synthetic Face Generation}, 
       author={Eduarda Caldeira and Naser Damer and Fadi Boutros},
@@ -60,6 +59,9 @@ If you use any of the code, pruned datasets or models provided in this repositor
       primaryClass={cs.CV},
       url={https://arxiv.org/abs/2508.09661}, 
 } </pre>
+
+### AdaptDiff
+TBA
 
 ## License
 
