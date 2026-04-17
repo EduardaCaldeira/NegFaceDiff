@@ -1,9 +1,7 @@
-# This is the official repository of the papers [NegFaceDiff: The Power of Negative Context in Identity-Conditioned Diffusion for Synthetic Face Generation](https://arxiv.org/abs/2508.09661) (accepted at ICCV Workshop 2025) and AdaptDiff: Adaptive Guidance in Diffusion Models for Diverse and Identity-Consistent Face Synthesis (accepted at AAAI Student Abstract and Poster 2026
+# This is the official repository of the papers [NegFaceDiff: The Power of Negative Context in Identity-Conditioned Diffusion for Synthetic Face Generation](https://arxiv.org/abs/2508.09661) (accepted at ICCV Workshop 2025) and [AdaptDiff: Adaptive Guidance in Diffusion Models for Diverse and Identity-Consistent Face Synthesis](https://arxiv.org/abs/2603.29569) (accepted at AAAI Student Abstract and Poster 2026
 
 ## Generated Datasets Download
-You can request access to the dataset generated with NegFaceDiff (Far-Neg, diffusion model pre-trained on CASIA-WebFace) [here](https://drive.google.com/drive/folders/1RXplM2j8cP4pyljcHweoq5I_xZFi3h_T?usp=sharing). This folder also contains the pre-trained diffusion model weights and the weights of the FR model trained on the generated data. **Please share your name, affiliation, and official email in the request form.**
-
-The dataset generated with AdaptDiff will be release soon.
+You can request access to the dataset generated with NegFaceDiff and AdaptDiff (Far-Neg, diffusion model pre-trained on CASIA-WebFace) [here](https://drive.google.com/drive/folders/1RXplM2j8cP4pyljcHweoq5I_xZFi3h_T?usp=sharing). This folder also contains the pre-trained diffusion model weights and the weights of the FR model trained on the generated data (with data augmentation). **Please share your name, affiliation, and official email in the request form.**
 
 ## Training Datasets Download
 You can download the FFHQ dataset [here](https://github.com/NVlabs/ffhq-dataset) and the CASIA-WebFace dataset [here](https://github.com/deepinsight/insightface/tree/master/recognition/_datasets_).
@@ -50,20 +48,26 @@ Most relevant configurations (`configs/sample_configs.yalm`):
 If you use any of the code, datasets or models provided in this repository, please cite the correspondent paper:
 
 ### NegFaceDiff
-<pre>@misc{caldeira2025negfacediff,
-      title={NegFaceDiff: The Power of Negative Context in Identity-Conditioned Diffusion for Synthetic Face Generation}, 
-      author={Eduarda Caldeira and Naser Damer and Fadi Boutros},
-      year={2025},
-      eprint={2508.09661},
-      archivePrefix={arXiv},
-      primaryClass={cs.CV},
-      url={https://arxiv.org/abs/2508.09661}, 
+<pre>@inproceedings{caldeira2025negfacediff,
+  title={NegFaceDiff: The Power of Negative Context in Identity-Conditioned Diffusion for Synthetic Face Generation},
+  author={Caldeira, Eduarda and Damer, Naser and Boutros, Fadi},
+  booktitle={Proceedings of the IEEE/CVF International Conference on Computer Vision},
+  pages={5914--5924},
+  year={2025}
 } </pre>
 
 ### AdaptDiff
-TBA
+<pre>@inproceedings{caldeira2026adaptdiff,
+  title={AdaptDiff: Adaptive Guidance in Diffusion Models for Diverse and Identity-Consistent Face Synthesis (Student Abstract)},
+  author={Caldeira, Eduarda and Chettaoui, Tahar and Damer, Naser and Boutros, Fadi},
+  booktitle={Proceedings of the AAAI Conference on Artificial Intelligence},
+  volume={40},
+  number={48},
+  pages={41146--41148},
+  year={2026}
+}</pre>
 
 ## License
 
-<pre>This project is licensed under the terms of the Attribution-NonCommercial 4.0 International (CC BY-NC 4.0) license. 
+<pre>These projects are licensed under the terms of the Attribution-NonCommercial 4.0 International (CC BY-NC 4.0) license. 
 Copyright (c) 2025 Fraunhofer Institute for Computer Graphics Research IGD Darmstadt </pre>
