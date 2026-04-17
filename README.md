@@ -1,7 +1,7 @@
 # This is the official repository of the papers [NegFaceDiff: The Power of Negative Context in Identity-Conditioned Diffusion for Synthetic Face Generation](https://arxiv.org/abs/2508.09661) (accepted at ICCV Workshop 2025) and [AdaptDiff: Adaptive Guidance in Diffusion Models for Diverse and Identity-Consistent Face Synthesis](https://arxiv.org/abs/2603.29569) (accepted at AAAI Student Abstract and Poster 2026
 
 ## Generated Datasets Download
-You can request access to the dataset generated with NegFaceDiff and AdaptDiff (Far-Neg, diffusion model pre-trained on CASIA-WebFace) [here](https://drive.google.com/drive/folders/1RXplM2j8cP4pyljcHweoq5I_xZFi3h_T?usp=sharing). This folder also contains the pre-trained diffusion model weights and the weights of the FR model trained on the generated data (with data augmentation). **Please share your name, affiliation, and official email in the request form.**
+You can request access to the datasets generated with NegFaceDiff and AdaptDiff (Far-Neg, diffusion model pre-trained on CASIA-WebFace) [here](https://drive.google.com/drive/folders/1RXplM2j8cP4pyljcHweoq5I_xZFi3h_T?usp=sharing). This folder also contains the pre-trained diffusion model weights and the weights of the FR models trained on each of the generated datasets (trained with data augmentation). **Please share your name, affiliation, and official email in the request form.**
 
 ## Training Datasets Download
 You can download the FFHQ dataset [here](https://github.com/NVlabs/ffhq-dataset) and the CASIA-WebFace dataset [here](https://github.com/deepinsight/insightface/tree/master/recognition/_datasets_).
@@ -32,7 +32,7 @@ To apply NegFaceDiff on top of an already trained diffusion model, we provide ac
 3. Run `MTCNN_alignment.py` to align the samples and obtain the final dataset
 
 Most relevant configurations (`configs/sample_configs.yalm`): 
-- `neg_prompt.w`: value of the negative context scale parameter (in this work, `neg_prompt.w = 0.5`)
+- `neg_prompt.w`: value of the negative context scale parameter (in these works, we define `neg_prompt.w = 0.5` for NegFaceDiff and `neg_prompt.w = 1` for AdaptDiff)
 - `sampling.is_ddim`: set to `true` to sample with DDIM and to `false` to sample with DDPM
 - `sampling.method`: `none -> Baseline IDiff-Face` (with `neg_prompt.w = 0`), `empty -> Null`, `cc -> Close-Neg`, `mc -> Mid-Neg`, `fc -> Far-Neg`, `rand -> Rand-Neg`
 - `neg_prompt.is_adaptive_w`: `false -> NegFaceDiff`, `true -> AdaptDiff`
